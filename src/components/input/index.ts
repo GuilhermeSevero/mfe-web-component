@@ -16,10 +16,22 @@ export class ZInput extends LitElement {
   placeholder = '';
 
   @property({ type: Boolean })
+  loading = false;
+
+  @property({ type: Boolean })
+  disabled = false;
+
+  @property({ type: Boolean })
   error = false;
 
   @property({ type: String })
   errorMessage = '';
+
+  @property({ type: String })
+  helper = '';
+
+  @property({ type: String })
+  maxlength = '';
 
   private onInput(event: Event) {
     const customEvent = new CustomEvent('z-input', {
@@ -33,17 +45,26 @@ export class ZInput extends LitElement {
   render() {
     return html`
       <div class="field">
-        <label class="label">${this.label}</label>
-        <p class="control">
+        <label
+          class="label ${this.error ? 'has-text-danger' : ''}"
+        >
+          ${this.label}
+        </label>
+        <p
+          class="control ${this.loading ? 'is-loading' : ''}"
+        >
           <input
-            class="input"
+            class="input ${this.error ? 'is-danger' : ''}"
             type="${this.type}"
             placeholder="${this.placeholder}"
+            ?disabled=${this.disabled || this.loading}
+            maxlength="${this.maxlength}"
             .value="${this.value}"
             @input="${this.onInput}"
           >
         </p>
-        ${this.error ? html`<p class="help">${this.errorMessage}</p>` : ''}
+        ${!this.error && this.helper ? html`<p class="help">${this.helper}</p>` : ''}
+        ${this.error ? html`<p class="help has-text-danger">${this.errorMessage}</p>` : ''}
       </div>
     `;
   }

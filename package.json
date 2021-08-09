@@ -8,9 +8,9 @@
     "build:prd": "webpack --mode=production",
     "analyze": "webpack --mode=production --env analyze",
     "lint": "eslint src --ext js,ts,tsx",
-    "test": "cross-env BABEL_ENV=test jest --passWithNoTests",
-    "watch-tests": "cross-env BABEL_ENV=test jest --watch",
-    "coverage": "cross-env BABEL_ENV=test jest --coverage"
+    "test": "BABEL_ENV=test jest --passWithNoTests",
+    "watch-tests": "BABEL_ENV=test jest --watch",
+    "coverage": "BABEL_ENV=test jest --coverage"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
